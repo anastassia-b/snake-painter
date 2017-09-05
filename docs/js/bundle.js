@@ -68,8 +68,41 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const View = __webpack_require__(1);
+
+$(function () {
+  const rootEl = $('.snake-painter-game');
+  new View(rootEl);
+});
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
+class View {
+  constructor($el) {
+    this.$el = $el;
+    this.setupBoard();
+  }
+
+  handleKeyEvent(event) {
+    
+  }
+
+  setupBoard() {
+
+  }
+
+  render() {
+
+  }
+
+}
+
+module.exports = View;
 
 
 /***/ })
