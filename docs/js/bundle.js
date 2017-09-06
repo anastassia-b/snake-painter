@@ -80,7 +80,9 @@ $(function () {
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+const Board = __webpack_require__(2);
 
 class View {
   constructor($el) {
@@ -89,10 +91,10 @@ class View {
   }
 
   handleKeyEvent(event) {
-    
+
   }
 
-  setupBoard() {
+  setupGrid() {
 
   }
 
@@ -100,9 +102,74 @@ class View {
 
   }
 
+  step() {
+
+  }
+
 }
 
+View.KEYS = {
+
+}
+
+View.STEP_MILLIS = 100;
+
 module.exports = View;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Snake = __webpack_require__(3);
+
+class Board {
+  constructor(dim) {
+    this.dim = dim;
+
+  }
+
+  static blankGrid(dim) {
+
+  }
+
+  render() {
+
+  }
+
+  validPosition(coord) {
+
+  }
+}
+
+module.exports = Board;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+class Snake {
+  constructor(board) {
+    this.board = board;
+    this.segments = [];
+  }
+
+  move() {
+
+  }
+
+  turn(dir) {
+
+  }
+
+}
+
+Snake.DIFFS = {
+
+};
+
+module.exports = Snake;
 
 
 /***/ })

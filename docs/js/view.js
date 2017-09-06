@@ -1,3 +1,5 @@
+const Board = require('./board');
+
 class View {
   constructor($el) {
     this.$el = $el;
@@ -5,10 +7,10 @@ class View {
   }
 
   handleKeyEvent(event) {
-    
+
   }
 
-  setupBoard() {
+  setupGrid() {
 
   }
 
@@ -16,6 +18,16 @@ class View {
 
   }
 
+  step() {
+
+  }
+
 }
+
+View.KEYS = {
+
+}
+
+View.STEP_MILLIS = 100;
 
 module.exports = View;
