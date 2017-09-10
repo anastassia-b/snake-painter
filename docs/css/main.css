@@ -1,0 +1,33 @@
+#snake-painter-game {
+  margin: 0 auto;
+  background: none;
+  width: 600px;
+}
+
+li {
+  float: left;
+}
+
+.square {
+  outline: 1px solid;
+  float: left;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+}
+
+button {
+
+}
+
+ul.group {
+  margin: 0;
+  width: 600px;
+  padding: 0;
+}
+
+.group:after {
+  content: "";
+  clear: both;
+  display: block;
+}
