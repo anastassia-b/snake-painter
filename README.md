@@ -6,5 +6,5 @@
 
 ### Screenshots
 
-![Image](https://github.com/anastassia-b/snake-painter/assets/snake-painter-0.png)
-![Image](https://anastassia-b.github.com/snake-painter/assets/snake-painter-0.png)
+
+![Snake Painter](/assets/snake-painter-0.png)
