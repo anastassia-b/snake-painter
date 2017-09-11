@@ -4,6 +4,11 @@
   width: 600px;
 }
 
+h1 {
+  font-family: sans-serif;
+  margin: 25px 50px;
+}
+
 li {
   float: left;
 }
@@ -16,8 +21,20 @@ li {
   height: 20px;
 }
 
-button {
+.levels {
 
+}
+
+button {
+  margin: 15px;
+  background-color: #f44336; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
 }
 
 ul.group {

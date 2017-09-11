@@ -82,7 +82,7 @@ $(function () {
 // const Board = require('./board');
 
 window.randomColorString = function() {
-  return '#' + Math.random().toString(16).substr(-6);
+  return '#' + Math.random().toString(16).substr(-4) + '00';
 }
 
 class View {
@@ -93,17 +93,23 @@ class View {
   }
 
   setupBoard() {
-    //make buttons for levels
-    for (let i = 0; i <= 5; i++) {
-      const $button = $("<button>").html(`Level ${i}`);
-      $button.on("click", this[`level${i}`]);
-      this.$el.append($button);
-    }
+    this.addButtons();
+
 
     for (let i = 0; i < 30; i++) {
       this.addRow();
     }
 
+  }
+
+  addButtons() {
+    const $levels = $("<nav>").addClass("levels");
+    for (let i = 0; i <= 4; i++) {
+      const $button = $("<button>").html(`Level ${i}`);
+      $button.on("click", this[`level${i}`]);
+      $levels.append($button);
+    }
+    this.$el.append($levels);
   }
 
   addRow() {
