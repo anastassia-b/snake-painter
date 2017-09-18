@@ -1,4 +1,4 @@
-// const Board = require('./board');
+const Board = require('./board');
 
 const randomColorString = function() {
   return '#' + Math.random().toString(16).substr(-4) + '00';
@@ -9,6 +9,9 @@ class View {
     this.$el = $el;
     this.setupBoard();
     this.level0();
+
+    this.board = new Board(30);
+    console.log(this.board);
   }
 
   setupBoard() {

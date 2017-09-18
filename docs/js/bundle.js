@@ -69,9 +69,9 @@
 /******/ ([
 /* 0 */,
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-// const Board = require('./board');
+const Board = __webpack_require__(3);
 
 const randomColorString = function() {
   return '#' + Math.random().toString(16).substr(-4) + '00';
@@ -82,6 +82,9 @@ class View {
     this.$el = $el;
     this.setupBoard();
     this.level0();
+
+    this.board = new Board(30);
+    console.log(this.board);
   }
 
   setupBoard() {
@@ -151,7 +154,35 @@ module.exports = View;
 
 /***/ }),
 /* 2 */,
-/* 3 */,
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Snake = __webpack_require__(5);
+
+class Board {
+  constructor(dim) {
+    this.dim = dim;
+    this.snake = new Snake(this);
+    console.log(this.snake);
+  }
+
+  static blankGrid(dim) {
+
+  }
+
+  render() {
+
+  }
+
+  validPosition(coord) {
+
+  }
+}
+
+module.exports = Board;
+
+
+/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -161,6 +192,98 @@ $(function () {
   const rootEl = $('.snake-painter-game');
   new View(rootEl);
 });
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+const Coordinates = __webpack_require__(6);
+
+class Snake {
+  constructor(board) {
+    this.board = board;
+    this.dir = "N";
+    this.turning = false;
+
+    const center = new Coordinates(Math.floor(board.dim/2), Math.floor(board.dim/2));
+    this.segments = [center];
+  }
+
+  move() {
+
+  }
+
+  turn(dir) {
+
+  }
+
+  head() {
+    return this.segments.slice(-1)[0];
+  }
+
+  isOccupying(array) {
+    let result = false;
+    this.segments.forEach( segment => {
+      if (segment.i === array[0] && segment.j === array[1]) {
+        result = true;
+        return result;
+      }
+    });
+    return result;
+  }
+
+  isValid() {
+    const head = this.head();
+
+    //going off the board
+    if (!this.board.validPosition(this.head())) {
+      return false;
+    }
+
+    //running into own tail
+    for (let i = 0; i < this.segments.length - 1; i++) {
+      if (this.segments[i].equals(head)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+}
+
+Snake.DIFFS = {
+
+};
+
+module.exports = Snake;
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+class Coordinates {
+  constructor(i, j) {
+    this.i = i;
+    this.j = j;
+  }
+
+  equals(coord2) {
+    return(this.i === coord2.i) && (this.j === coord2.j);
+  }
+
+  isOpposite(coord2) {
+    return (this.i === (-1 * coord2.i)) && (this.j === (-1 * coord2.j));
+  }
+
+  plus(coord2) {
+    return new Coordinates(this.i + coord2.i, this.j + coord2.j);
+  }
+
+}
+
+module.exports = Coordinates;
 
 
 /***/ })
