@@ -91,6 +91,8 @@ class View {
     );
 
     this.$li = this.$el.find("li");
+
+    $(window).on("keydown", this.handleKeyEvent.bind(this));
   }
 
   setupBoard() {
@@ -134,7 +136,9 @@ class View {
   }
 
   handleKeyEvent(event) {
-
+    if (View.KEYS[event.keyCode]) {
+      this.board.snake.turn(View.KEYS[event.keyCode]);
+    }
   }
 
   render() {
@@ -148,16 +152,19 @@ class View {
     coords.forEach( coord => {
       const flatCoord = (coord.i * this.board.dim) + coord.j;
       console.log("flatCoord", flatCoord);
-      console.log(this.$li.eq(flatCoord));
       this.$li.eq(flatCoord).addClass(className);
     });
   }
 
   step() {
-    console.log("here");
-    this.board.snake.move();
-    this.render();
-    window.clearInterval(this.intervalId);
+    //hard coded for now so not infinite loop
+    if (this.board.snake.segments.length < 30) {
+      this.board.snake.move();
+      this.render();
+    } else {
+      alert("Game over!");
+      window.clearInterval(this.intervalId);
+    }
   }
 
 }
@@ -251,10 +258,18 @@ class Snake {
 
   move() {
     this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
+    this.turning = false;
   }
 
   turn(dir) {
-
+    console.log(dir);
+    if (Snake.DIFFS[this.dir].isOpposite(Snake.DIFFS[dir]) ||
+      this.turning) {
+      return;
+    } else {
+      this.turning = true;
+      this.dir = dir;
+    }
   }
 
   head() {

@@ -12,10 +12,18 @@ class Snake {
 
   move() {
     this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
+    this.turning = false;
   }
 
   turn(dir) {
-
+    console.log(dir);
+    if (Snake.DIFFS[this.dir].isOpposite(Snake.DIFFS[dir]) ||
+      this.turning) {
+      return;
+    } else {
+      this.turning = true;
+      this.dir = dir;
+    }
   }
 
   head() {
