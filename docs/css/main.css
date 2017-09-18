@@ -1,33 +1,57 @@
-#snake-painter-game {
-  margin: 0 auto;
-  background: none;
-  width: 600px;
+html, body, figure, figcaption, ul, li, h1 {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  text-align: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  font-family: sans-serif;
+  text-align: center;
+  font-weight: bold;
 }
 
 h1 {
-  font-family: sans-serif;
-  margin: 25px 50px;
+  font-size: 42px;
+  margin: 30px;
+}
+
+figure .board {
+  display: inline-block;
+  border: 10px solid black;
+}
+
+ul {
+}
+
+ul:after {
+  content: "";
+  clear: both;
+  display: block;
 }
 
 li {
   float: left;
-}
-
-.square {
-  outline: 1px solid;
-  float: left;
-  list-style: none;
   width: 20px;
   height: 20px;
 }
 
-.levels {
-
+/*.apple {
+  background: red;
 }
+
+.snake {
+  background: green;
+}*/
 
 button {
   margin: 15px;
-  background-color: #f44336; /* Green */
+  background-color: #f44336;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -37,14 +61,10 @@ button {
   font-size: 14px;
 }
 
-ul.group {
-  margin: 0;
-  width: 600px;
-  padding: 0;
-}
-
-.group:after {
-  content: "";
-  clear: both;
-  display: block;
+.square {
+  outline: 1px solid;
+  float: left;
+  list-style: none;
+  width: 20px;
+  height: 20px;
 }

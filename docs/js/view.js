@@ -1,8 +1,8 @@
 // const Board = require('./board');
 
-window.randomColorString = function() {
+const randomColorString = function() {
   return '#' + Math.random().toString(16).substr(-4) + '00';
-}
+};
 
 class View {
   constructor($el) {
@@ -14,11 +14,13 @@ class View {
   setupBoard() {
     this.addButtons();
 
+    const $board = $("<figure>").addClass("board");
 
     for (let i = 0; i < 30; i++) {
-      this.addRow();
+      this.addRow($board);
     }
 
+    this.$el.append($board);
   }
 
   addButtons() {
@@ -31,7 +33,7 @@ class View {
     this.$el.append($levels);
   }
 
-  addRow() {
+  addRow($board) {
     const rowIdx = this.$el.find(".row").length;
     const $row = $("<ul>").addClass("row").addClass("group");
     for (let colIdx = 0; colIdx < 30; colIdx++) {
@@ -39,14 +41,13 @@ class View {
 
       $row.append($square);
     }
-    this.$el.append($row);
+    $board.append($row);
   }
 
   level0() {
-    console.log("something");
     $('.square').on("mouseover", e => {
       const $sq = $(e.currentTarget);
-      $sq.css("background-color",  randomColorString());
+      $sq.css("background-color", randomColorString());
     });
   }
 
@@ -68,7 +69,7 @@ class View {
 
 View.KEYS = {
 
-}
+};
 
 View.STEP_MILLIS = 100;
 
