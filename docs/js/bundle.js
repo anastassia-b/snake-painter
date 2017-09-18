@@ -85,6 +85,12 @@ class View {
 
     this.board = new Board(30);
     console.log(this.board);
+
+    this.intervalId = window.setInterval(
+      this.step.bind(this), View.STEP_MILLIS
+    );
+
+    this.$li = this.$el.find("li");
   }
 
   setupBoard() {
@@ -127,24 +133,41 @@ class View {
     });
   }
 
-  render() {
-
-  }
-
   handleKeyEvent(event) {
 
   }
 
+  render() {
+    this.updateClasses(this.board.snake.segments, "snake");
+  }
+
+  updateClasses(coords, className) {
+    this.$li.filter(`.${className}`).removeClass();
+    //note may be nested one level under li.
+
+    coords.forEach( coord => {
+      const flatCoord = (coord.i * this.board.dim) + coord.j;
+      console.log("flatCoord", flatCoord);
+      console.log(this.$li.eq(flatCoord));
+      this.$li.eq(flatCoord).addClass(className);
+    });
+  }
 
   step() {
-
+    console.log("here");
+    this.board.snake.move();
+    this.render();
+    window.clearInterval(this.intervalId);
   }
 
 }
 
 
 View.KEYS = {
-
+  38: "N",
+  39: "E",
+  40: "S",
+  37: "W"
 };
 
 View.STEP_MILLIS = 100;
@@ -163,21 +186,37 @@ class Board {
   constructor(dim) {
     this.dim = dim;
     this.snake = new Snake(this);
-    console.log(this.snake);
   }
 
   static blankGrid(dim) {
+    const grid = [];
 
+    for (let i = 0; i < dim; i++) {
+      const row = [];
+      for (let j = 0; j < dim; j++) {
+        row.push(Board.BLANK_SYMBOL);
+      }
+      grid.push(row);
+    }
+
+    return grid;
   }
 
   render() {
+    const grid = Board.blankGrid(this.dim);
+
+    this.snake.segments.forEach( segment => {
+      grid[segment.i][segment.j] = Snake.SYMBOL;
+    });
 
   }
 
   validPosition(coord) {
-
+    return (coord.i >= 0) && (coord.i < this.dim) && (coord.j >= 0) && (coord.j < this.dim);
   }
 }
+
+Board.BLANK_SYMBOL = ".";
 
 module.exports = Board;
 
@@ -211,7 +250,7 @@ class Snake {
   }
 
   move() {
-
+    this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
   }
 
   turn(dir) {
@@ -253,8 +292,13 @@ class Snake {
 }
 
 Snake.DIFFS = {
-
+  "N": new Coordinates(-1, 0),
+  "E": new Coordinates(0, 1),
+  "S": new Coordinates(1, 0),
+  "W": new Coordinates(0, -1)
 };
+
+Snake.SYMBOL = "S";
 
 module.exports = Snake;
 

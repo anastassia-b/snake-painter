@@ -11,7 +11,7 @@ class Snake {
   }
 
   move() {
-
+    this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
   }
 
   turn(dir) {
@@ -53,7 +53,12 @@ class Snake {
 }
 
 Snake.DIFFS = {
-
+  "N": new Coordinates(-1, 0),
+  "E": new Coordinates(0, 1),
+  "S": new Coordinates(1, 0),
+  "W": new Coordinates(0, -1)
 };
+
+Snake.SYMBOL = "S";
 
 module.exports = Snake;

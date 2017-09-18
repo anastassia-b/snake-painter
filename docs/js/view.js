@@ -12,6 +12,12 @@ class View {
 
     this.board = new Board(30);
     console.log(this.board);
+
+    this.intervalId = window.setInterval(
+      this.step.bind(this), View.STEP_MILLIS
+    );
+
+    this.$li = this.$el.find("li");
   }
 
   setupBoard() {
@@ -54,24 +60,41 @@ class View {
     });
   }
 
-  render() {
-
-  }
-
   handleKeyEvent(event) {
 
   }
 
+  render() {
+    this.updateClasses(this.board.snake.segments, "snake");
+  }
+
+  updateClasses(coords, className) {
+    this.$li.filter(`.${className}`).removeClass();
+    //note may be nested one level under li.
+
+    coords.forEach( coord => {
+      const flatCoord = (coord.i * this.board.dim) + coord.j;
+      console.log("flatCoord", flatCoord);
+      console.log(this.$li.eq(flatCoord));
+      this.$li.eq(flatCoord).addClass(className);
+    });
+  }
 
   step() {
-
+    console.log("here");
+    this.board.snake.move();
+    this.render();
+    window.clearInterval(this.intervalId);
   }
 
 }
 
 
 View.KEYS = {
-
+  38: "N",
+  39: "E",
+  40: "S",
+  37: "W"
 };
 
 View.STEP_MILLIS = 100;
