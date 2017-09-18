@@ -8,7 +8,6 @@ class View {
   constructor($el) {
     this.$el = $el;
     this.setupBoard();
-    this.level0();
 
     this.board = new Board(30);
     console.log(this.board);
@@ -74,18 +73,18 @@ class View {
 
   updateClasses(coords, className) {
     this.$li.filter(`.${className}`).removeClass();
-    //note may be nested one level under li.
 
     coords.forEach( coord => {
       const flatCoord = (coord.i * this.board.dim) + coord.j;
       console.log("flatCoord", flatCoord);
-      this.$li.eq(flatCoord).addClass(className);
+      // this.$li.eq(flatCoord).addClass(className);
+      this.$li.eq(flatCoord).css("background-color", randomColorString());
     });
   }
 
   step() {
     //hard coded for now so not infinite loop
-    if (this.board.snake.segments.length < 30) {
+    if (this.board.snake.segments.length < 300) {
       this.board.snake.move();
       this.render();
     } else {
