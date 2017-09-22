@@ -61,6 +61,8 @@ class View {
   }
 
   paint() {
+    $("li").css("background-color", "#fff7f8");
+
     $('.square').on("mouseover", e => {
       const $sq = $(e.currentTarget);
       $sq.css("background-color", randomColorString());
@@ -78,7 +80,7 @@ class View {
   }
 
   updateClasses(coords, className) {
-    this.$li.filter(`.${className}`).removeClass();
+    // this.$li.filter(`.${className}`).removeClass();
 
     coords.forEach( coord => {
       const flatCoord = (coord.i * this.board.dim) + coord.j;
@@ -89,7 +91,6 @@ class View {
   }
 
   step() {
-    //hard coded for now so not infinite loop
     if (this.board.snake.segments.length !== 0) {
       this.board.snake.move();
       this.render();
