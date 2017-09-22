@@ -35,10 +35,16 @@ class View {
 
   addButtons() {
     const $levels = $("<nav>").addClass("levels");
-    for (let i = 0; i <= 4; i++) {
-      const $button = $("<button>").html(`Level ${i}`);
-      $button.on("click", this[`level${i}`]);
-      $levels.append($button);
+    for (let i = 0; i <= 3; i++) {
+      if (i === 0 ) {
+        const $button = $("<button>").html('Paint');
+        $button.on("click", this.paint);
+        $levels.append($button);
+      } else {
+        const $button = $("<button>").html(`Level ${i}`);
+        $button.on("click", this[`level${i}`]);
+        $levels.append($button);
+      }
     }
     this.$el.append($levels);
   }
@@ -54,7 +60,7 @@ class View {
     $board.append($row);
   }
 
-  level0() {
+  paint() {
     $('.square').on("mouseover", e => {
       const $sq = $(e.currentTarget);
       $sq.css("background-color", randomColorString());
