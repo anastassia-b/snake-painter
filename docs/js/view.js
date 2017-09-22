@@ -84,7 +84,7 @@ class View {
 
   step() {
     //hard coded for now so not infinite loop
-    if (this.board.snake.segments.length < 300) {
+    if (this.board.snake.segments.length !== 0) {
       this.board.snake.move();
       this.render();
     } else {

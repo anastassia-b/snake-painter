@@ -157,7 +157,7 @@ class View {
 
   step() {
     //hard coded for now so not infinite loop
-    if (this.board.snake.segments.length < 300) {
+    if (this.board.snake.segments.length !== 0) {
       this.board.snake.move();
       this.render();
     } else {
@@ -258,6 +258,10 @@ class Snake {
   move() {
     this.segments.push(this.head().plus(Snake.DIFFS[this.dir]));
     this.turning = false;
+
+    if (!this.isValid()) {
+      this.segments = [];
+    }
   }
 
   turn(dir) {
