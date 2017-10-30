@@ -63,15 +63,14 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Board = __webpack_require__(3);
+const Board = __webpack_require__(1);
 
 const randomColorString = function() {
   return '#' + Math.random().toString(16).substr(-4) + '00';
@@ -80,9 +79,10 @@ const randomColorString = function() {
 class View {
   constructor($el) {
     this.$el = $el;
-    this.setupBoard();
+    const size = 25;
+    this.setupBoard(size);
 
-    this.board = new Board(30);
+    this.board = new Board(size);
     console.log(this.board);
 
     this.intervalId = window.setInterval(
@@ -94,13 +94,13 @@ class View {
     $(window).on("keydown", this.handleKeyEvent.bind(this));
   }
 
-  setupBoard() {
+  setupBoard(size) {
     this.addButtons();
 
     const $board = $("<figure>").addClass("board");
 
-    for (let i = 0; i < 30; i++) {
-      this.addRow($board);
+    for (let i = 0; i < size; i++) {
+      this.addRow($board, size);
     }
 
     this.$el.append($board);
@@ -122,10 +122,10 @@ class View {
     this.$el.append($levels);
   }
 
-  addRow($board) {
+  addRow($board, size) {
     const rowIdx = this.$el.find(".row").length;
     const $row = $("<ul>").addClass("row").addClass("group");
-    for (let colIdx = 0; colIdx < 30; colIdx++) {
+    for (let colIdx = 0; colIdx < size; colIdx++) {
       const $square = $("<li>").addClass("square").attr("data-pos", [rowIdx, colIdx]);
 
       $row.append($square);
@@ -157,7 +157,7 @@ class View {
 
     coords.forEach( coord => {
       const flatCoord = (coord.i * this.board.dim) + coord.j;
-      console.log("flatCoord", flatCoord);
+      // console.log("flatCoord", flatCoord);
       // this.$li.eq(flatCoord).addClass(className);
       this.$li.eq(flatCoord).css("background-color", randomColorString());
     });
@@ -189,11 +189,10 @@ module.exports = View;
 
 
 /***/ }),
-/* 2 */,
-/* 3 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Snake = __webpack_require__(5);
+const Snake = __webpack_require__(4);
 
 class Board {
   constructor(dim) {
@@ -235,10 +234,37 @@ module.exports = Board;
 
 
 /***/ }),
-/* 4 */
+/* 2 */
+/***/ (function(module, exports) {
+
+class Coordinates {
+  constructor(i, j) {
+    this.i = i;
+    this.j = j;
+  }
+
+  equals(coord2) {
+    return(this.i === coord2.i) && (this.j === coord2.j);
+  }
+
+  isOpposite(coord2) {
+    return (this.i === (-1 * coord2.i)) && (this.j === (-1 * coord2.j));
+  }
+
+  plus(coord2) {
+    return new Coordinates(this.i + coord2.i, this.j + coord2.j);
+  }
+
+}
+
+module.exports = Coordinates;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const View = __webpack_require__(1);
+const View = __webpack_require__(0);
 
 $(function () {
   const rootEl = $('.snake-painter-game');
@@ -247,10 +273,10 @@ $(function () {
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const Coordinates = __webpack_require__(6);
+const Coordinates = __webpack_require__(2);
 
 class Snake {
   constructor(board) {
@@ -326,33 +352,6 @@ Snake.DIFFS = {
 Snake.SYMBOL = "S";
 
 module.exports = Snake;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-class Coordinates {
-  constructor(i, j) {
-    this.i = i;
-    this.j = j;
-  }
-
-  equals(coord2) {
-    return(this.i === coord2.i) && (this.j === coord2.j);
-  }
-
-  isOpposite(coord2) {
-    return (this.i === (-1 * coord2.i)) && (this.j === (-1 * coord2.j));
-  }
-
-  plus(coord2) {
-    return new Coordinates(this.i + coord2.i, this.j + coord2.j);
-  }
-
-}
-
-module.exports = Coordinates;
 
 
 /***/ })

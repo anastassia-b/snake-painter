@@ -7,9 +7,10 @@ const randomColorString = function() {
 class View {
   constructor($el) {
     this.$el = $el;
-    this.setupBoard();
+    const size = 25;
+    this.setupBoard(size);
 
-    this.board = new Board(30);
+    this.board = new Board(size);
     console.log(this.board);
 
     this.intervalId = window.setInterval(
@@ -21,13 +22,13 @@ class View {
     $(window).on("keydown", this.handleKeyEvent.bind(this));
   }
 
-  setupBoard() {
+  setupBoard(size) {
     this.addButtons();
 
     const $board = $("<figure>").addClass("board");
 
-    for (let i = 0; i < 30; i++) {
-      this.addRow($board);
+    for (let i = 0; i < size; i++) {
+      this.addRow($board, size);
     }
 
     this.$el.append($board);
@@ -49,10 +50,10 @@ class View {
     this.$el.append($levels);
   }
 
-  addRow($board) {
+  addRow($board, size) {
     const rowIdx = this.$el.find(".row").length;
     const $row = $("<ul>").addClass("row").addClass("group");
-    for (let colIdx = 0; colIdx < 30; colIdx++) {
+    for (let colIdx = 0; colIdx < size; colIdx++) {
       const $square = $("<li>").addClass("square").attr("data-pos", [rowIdx, colIdx]);
 
       $row.append($square);
@@ -84,7 +85,7 @@ class View {
 
     coords.forEach( coord => {
       const flatCoord = (coord.i * this.board.dim) + coord.j;
-      console.log("flatCoord", flatCoord);
+      // console.log("flatCoord", flatCoord);
       // this.$li.eq(flatCoord).addClass(className);
       this.$li.eq(flatCoord).css("background-color", randomColorString());
     });
