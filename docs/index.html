@@ -9,9 +9,26 @@
   </head>
 
   <body><center>
-    <h1>Snake Painter</h1>
+    <h1 contenteditable>🐍 Snake Painter</h1>
 
     <figure class="snake-painter-game"></figure>
 
   </center></body>
+
+  <script>
+    const text = document.querySelector('h1');
+    const walk = 50;
+
+    function shadow(e) {
+      const { offsetWidth: width, offsetHeight: height } = text;
+      let { offsetX: x, offsetY: y } = e;
+
+      const xWalk = Math.round((x / width * walk) - (walk / 2));
+      const yWalk = Math.round((y / height * walk) - (walk / 2));
+      console.log(xWalk, yWalk);
+      text.style.textShadow = `${xWalk}px ${yWalk}px 0 rgba(0,0,0,0.2)`;
+    }
+
+    text.addEventListener('mousemove', shadow);
+  </script>
 </html>
