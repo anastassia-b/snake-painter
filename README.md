@@ -7,4 +7,4 @@
 ### Screenshots
 
 
-![Snake Painter](/assets/snake-painter-0.png)
+![Snake Painter](/assets/snake-painter-1.png)
