@@ -11,7 +11,6 @@ class View {
     this.setupBoard(size);
 
     this.board = new Board(size);
-    console.log(this.board);
 
     this.intervalId = window.setInterval(
       this.step.bind(this), View.STEP_MILLIS
@@ -36,14 +35,14 @@ class View {
 
   addButtons() {
     const $levels = $("<nav>").addClass("levels");
-    for (let i = 0; i <= 3; i++) {
+    for (let i = 0; i <= 1; i++) {
       if (i === 0 ) {
         const $button = $("<button>").html('Paint');
         $button.on("click", this.paint);
         $levels.append($button);
       } else {
-        const $button = $("<button>").html(`Level ${i}`);
-        $button.on("click", this[`level${i}`]);
+        const $button = $("<button>").html(`Play`);
+        $button.on("click", () => window.location.reload(false));
         $levels.append($button);
       }
     }
